@@ -1,18 +1,9 @@
-const ALLOWED_ORIGINS = [
-  'https://www.nycbirdalliance.org',
-  'https://nycbirdalliance.org',
-  'null', // temporary: allows direct browser testing — remove before going live
-];
+const origin = req.headers.origin || req.headers.referer || '';
+// TEMPORARY: origin check disabled for testing — re-enable before going live
+// const allowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o));
+// if (!allowed) return res.status(403).json({ error: 'Forbidden' });
 
-export default async function handler(req, res) {
-  const origin = req.headers.origin || req.headers.referer || '';
-  const allowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o));
-
-  if (!allowed) {
-    return res.status(403).json({ error: 'Forbidden' });
-  }
-
-  res.setHeader('Access-Control-Allow-Origin', origin);
+res.setHeader('Access-Control-Allow-Origin', '*');
 
   const { hotspot } = req.query;
   if (!hotspot) return res.status(400).json({ error: 'Missing hotspot param' });
