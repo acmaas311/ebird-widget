@@ -107,7 +107,7 @@ export default function handler(req, res) {
       html += '<div class="ew-body"><div class="ew-cols">';
 
       // Column 1: species list
-      html += '<div><h4>Most Recent Species Seen This Month</h4>';
+      html += '<div><h4>Most Recent Species Recorded This Month</h4>';
       if (recent.length) {
         html += '<ul>';
         recent.slice(0, 10).forEach(function(b) {
