@@ -40,8 +40,8 @@ export default function handler(req, res) {
     .ew-tip-box::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#333; }
     .ew-tip:hover .ew-tip-box { display:block; }
     .ew-body { padding:1rem 1.25rem; }
-    .ew-cols { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.25rem; }
-    @container (max-width: 600px) { .ew-cols { grid-template-columns:1fr 1fr; } }
+    .ew-cols { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .ew-stack { display:flex; flex-direction:column; gap:1.25rem; }
     @container (max-width: 400px) { .ew-cols { grid-template-columns:1fr; } }
     h4 { font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:#444; margin:0 0 .5rem; }
     ul { list-style:none; margin:0; padding:0; }
@@ -103,6 +103,21 @@ export default function handler(req, res) {
 
       html += '<div class="ew-body"><div class="ew-cols">';
 
+      // Column 1: species list
+      html += '<div><h4>Most Recent Species Seen This Month</h4>';
+      if (recent.length) {
+        html += '<ul>';
+        recent.slice(0, 20).forEach(function(b) {
+          html += '<li><span>' + esc(b.comName) + '</span>' + (b.howMany ? '<span class="ew-count">' + b.howMany + '</span>' : '') + '</li>';
+        });
+        html += '</ul>';
+      } else {
+        html += '<p class="ew-empty">No sightings reported yet.</p>';
+      }
+      html += '</div>';
+
+      // Column 2: rare birds stacked above recent checklists
+      html += '<div class="ew-stack">';
       html += '<div><h4>\uD83D\uDD34 Rare Bird Alerts</h4>';
       if (notable.length) {
         html += '<ul>';
@@ -112,18 +127,6 @@ export default function handler(req, res) {
         html += '</ul>';
       } else {
         html += '<p class="ew-empty">No rare birds reported.</p>';
-      }
-      html += '</div>';
-
-      html += '<div><h4>Species This Month</h4>';
-      if (recent.length) {
-        html += '<ul>';
-        recent.slice(0, 20).forEach(function(b) {
-          html += '<li><span>' + esc(b.comName) + '</span>' + (b.howMany ? '<span class="ew-count">' + b.howMany + '</span>' : '') + '</li>';
-        });
-        html += '</ul>';
-      } else {
-        html += '<p class="ew-empty">No sightings reported yet.</p>';
       }
       html += '</div>';
 
@@ -142,6 +145,7 @@ export default function handler(req, res) {
         html += '<p class="ew-empty">No recent checklists.</p>';
       }
       html += '</div>';
+      html += '</div>'; // close ew-stack
 
       html += '</div></div>';
       html += '<div class="ew-footer">';
