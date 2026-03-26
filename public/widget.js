@@ -7,6 +7,7 @@
   // CSS is completely isolated from whatever the host page is doing.
   const host = document.createElement('div');
   host.id = 'ebird-widget-' + hotspot;
+  host.style.cssText = 'display:block;width:100%;';
   script.parentNode.insertBefore(host, script.nextSibling);
 
   const shadow = host.attachShadow({ mode: 'open' });
