@@ -21,8 +21,8 @@ export default function handler(req, res) {
     :host { display: block; }
     .ew-wrap { container-type: inline-size; }
     .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:visible; color:#1a3a1a; }
-    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; overflow:visible; }
-    .ew-header-left { display:flex; flex-direction:column; }
+    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; overflow:visible; }
+    .ew-header-left { margin-bottom:.75rem; }
     .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
     .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
     .ew-title span { font-size:.85rem; font-weight:400; color:#666; margin-left:.4rem; }
