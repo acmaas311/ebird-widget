@@ -37,8 +37,8 @@ export default function handler(req, res) {
     .ew-month-updated { font-size:.7rem; color:#aaa; margin-left:auto; }
     .ew-tip { position:relative; display:inline-flex; align-items:center; cursor:help; margin-left:.3rem; }
     .ew-tip-icon { font-size:.72rem; color:#aaa; line-height:1; }
-    .ew-tip-box { display:none; position:absolute; z-index:99; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#333; color:#fff; font-size:.72rem; line-height:1.45; padding:.45rem .6rem; border-radius:5px; width:210px; pointer-events:none; white-space:normal; }
-    .ew-tip-box::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#333; }
+    .ew-tip-box { display:none; position:absolute; z-index:99; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#333; color:#fff; font-size:.72rem; line-height:1.45; padding:.45rem .6rem; border-radius:5px; width:210px; pointer-events:none; white-space:normal; }
+    .ew-tip-box::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:#333; }
     .ew-tip:hover .ew-tip-box { display:block; }
     .ew-body { padding:1rem 1.25rem; }
     .ew-cols { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
