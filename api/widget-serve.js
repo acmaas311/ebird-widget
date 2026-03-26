@@ -20,18 +20,18 @@ export default function handler(req, res) {
     *, *::before, *::after { box-sizing: border-box; }
     :host { display: block; }
     .ew-wrap { container-type: inline-size; }
-    .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:hidden; color:#1a3a1a; }
-    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:visible; color:#1a3a1a; }
+    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; overflow:visible; }
     .ew-header-left { display:flex; flex-direction:column; }
     .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
     .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
     .ew-title span { font-size:.85rem; font-weight:400; color:#666; margin-left:.4rem; }
-    .ew-stat-groups { display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; row-gap:.75rem; flex-shrink:0; }
+    .ew-stat-groups { display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; row-gap:.75rem; min-width:0; }
     .ew-stat-group { display:flex; flex-direction:column; gap:.35rem; }
     .ew-stat-group + .ew-stat-group { padding-left:1.25rem; margin-left:1.25rem; border-left:1px solid #d4e6c3; }
     .ew-stat-group-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#2d6a2d; display:flex; align-items:center; gap:.3rem; }
     .ew-stat-group-meta { font-size:.65rem; color:#aaa; font-weight:400; letter-spacing:0; text-transform:none; }
-    .ew-stats { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .ew-stats { display:flex; gap:1rem; flex-wrap:wrap; }
     .ew-stat-num { font-size:1.2rem; font-weight:700; color:#2d6a2d; display:block; }
     .ew-stat-label { font-size:.68rem; color:#666; text-transform:uppercase; letter-spacing:.05em; }
     .ew-month-updated { font-size:.7rem; color:#aaa; margin-left:auto; }
@@ -40,7 +40,7 @@ export default function handler(req, res) {
     .ew-tip-box { display:none; position:absolute; z-index:99; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#333; color:#fff; font-size:.72rem; line-height:1.45; padding:.45rem .6rem; border-radius:5px; width:210px; pointer-events:none; white-space:normal; }
     .ew-tip-box::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-bottom-color:#333; }
     .ew-tip:hover .ew-tip-box { display:block; }
-    .ew-body { padding:1rem 1.25rem; }
+    .ew-body { padding:1rem 1.25rem; overflow:hidden; }
     .ew-cols { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
     .ew-stack { display:flex; flex-direction:column; gap:1.25rem; }
     @container (max-width: 400px) { .ew-cols { grid-template-columns:1fr; } }
