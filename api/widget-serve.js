@@ -25,14 +25,14 @@ export default function handler(req, res) {
     .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
     .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
     .ew-title span { font-size:.85rem; font-weight:400; color:#666; margin-left:.4rem; }
-    .ew-species-badge { font-size:.78rem; color:#2d6a2d; font-weight:500; margin:.25rem 0 0; }
-    .ew-stats { display:flex; gap:2rem; margin:.75rem 0 0; flex-wrap:wrap; }
-    .ew-stat-num { font-size:1.3rem; font-weight:700; color:#2d6a2d; display:block; }
-    .ew-stat-label { font-size:.7rem; color:#666; text-transform:uppercase; letter-spacing:.05em; }
-    .ew-month { padding:.75rem 1.25rem; border-bottom:1px solid #d4e6c3; background:#f0f7ec; }
-    .ew-month-header { display:flex; align-items:baseline; gap:.5rem; margin-bottom:.5rem; flex-wrap:wrap; }
-    .ew-month-title { font-size:.85rem; font-weight:700; color:#1a3a1a; }
-    .ew-month-label { font-size:.75rem; color:#666; }
+    .ew-stat-groups { display:flex; gap:0; margin:.9rem 0 0; align-items:flex-start; flex-wrap:wrap; row-gap:.75rem; }
+    .ew-stat-group { display:flex; flex-direction:column; gap:.35rem; }
+    .ew-stat-group + .ew-stat-group { padding-left:1.25rem; margin-left:1.25rem; border-left:1px solid #d4e6c3; }
+    .ew-stat-group-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#2d6a2d; display:flex; align-items:center; gap:.3rem; }
+    .ew-stat-group-meta { font-size:.65rem; color:#aaa; font-weight:400; letter-spacing:0; text-transform:none; }
+    .ew-stats { display:flex; gap:1.5rem; flex-wrap:wrap; }
+    .ew-stat-num { font-size:1.2rem; font-weight:700; color:#2d6a2d; display:block; }
+    .ew-stat-label { font-size:.68rem; color:#666; text-transform:uppercase; letter-spacing:.05em; }
     .ew-month-updated { font-size:.7rem; color:#aaa; margin-left:auto; }
     .ew-tip { position:relative; display:inline-flex; align-items:center; cursor:help; margin-left:.3rem; }
     .ew-tip-icon { font-size:.72rem; color:#aaa; line-height:1; }
@@ -80,18 +80,26 @@ export default function handler(req, res) {
       html += '<div class="ew-header">';
       html += '<div class="ew-eyebrow">Latest Data from eBird</div>';
       if (hotspotName) html += '<h3 class="ew-title">' + esc(hotspotName) + '</h3>';
-      if (numSpeciesAllTime) html += '<div class="ew-species-badge">' + numSpeciesAllTime.toLocaleString() + ' species recorded all time</div>';
+      html += '<div class="ew-stat-groups">';
+      if (numSpeciesAllTime) {
+        html += '<div class="ew-stat-group">';
+        html += '<div class="ew-stat-group-label">All Time</div>';
+        html += '<div class="ew-stats"><div><span class="ew-stat-num">' + numSpeciesAllTime.toLocaleString() + '</span><span class="ew-stat-label">Species</span></div></div>';
+        html += '</div>';
+      }
+      html += '<div class="ew-stat-group">';
+      html += '<div class="ew-stat-group-label">';
+      if (monthLabel) html += monthLabel;
+      html += '<span class="ew-tip"><span class="ew-tip-icon">\u24D8</span><span class="ew-tip-box">Figures come from the eBird API and may differ slightly from eBird\u2019s website, which applies additional quality filters.</span></span>';
+      if (lastChecklist) html += '<span class="ew-stat-group-meta">Updated ' + formatDate(lastChecklist) + '</span>';
       html += '</div>';
-
-      html += '<div class="ew-month"><div class="ew-month-header">';
-      html += '<span class="ew-month-title">eBirding This Month</span><span class="ew-tip"><span class="ew-tip-icon">\u24D8</span><span class="ew-tip-box">Figures come from the eBird API and may differ slightly from eBird\u2019s website, which applies additional quality filters.</span></span>';
-      if (monthLabel) html += '<span class="ew-month-label">' + monthLabel + '</span>';
-      if (lastChecklist) html += '<span class="ew-month-updated">Updated ' + formatDate(lastChecklist) + '</span>';
-      html += '</div><div class="ew-stats">';
-      html += '<div><span class="ew-stat-num" style="font-size:1rem;">' + speciesThisMonth + '</span><span class="ew-stat-label">Species</span></div>';
-      html += '<div><span class="ew-stat-num" style="font-size:1rem;">' + checklistsThisMonth + '</span><span class="ew-stat-label">Checklists</span></div>';
-      html += '<div><span class="ew-stat-num" style="font-size:1rem;">' + eBirdersThisMonth + '</span><span class="ew-stat-label">eBirders</span></div>';
+      html += '<div class="ew-stats">';
+      html += '<div><span class="ew-stat-num">' + speciesThisMonth + '</span><span class="ew-stat-label">Species</span></div>';
+      html += '<div><span class="ew-stat-num">' + checklistsThisMonth + '</span><span class="ew-stat-label">Checklists</span></div>';
+      html += '<div><span class="ew-stat-num">' + eBirdersThisMonth + '</span><span class="ew-stat-label">eBirders</span></div>';
       html += '</div></div>';
+      html += '</div>';
+      html += '</div>';
 
       html += '<div class="ew-body"><div class="ew-cols">';
 
