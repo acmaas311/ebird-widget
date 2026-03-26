@@ -1,6 +1,7 @@
 const ALLOWED_ORIGINS = [
   'https://www.nycbirdalliance.org',
   'https://nycbirdalliance.org',
+  'null', // temporary: allows direct browser testing — remove before going live
 ];
 
 export default async function handler(req, res) {
