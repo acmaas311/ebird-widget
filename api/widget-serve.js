@@ -34,6 +34,11 @@ export default function handler(req, res) {
     .ew-month-title { font-size:.85rem; font-weight:700; color:#1a3a1a; }
     .ew-month-label { font-size:.75rem; color:#666; }
     .ew-month-updated { font-size:.7rem; color:#aaa; margin-left:auto; }
+    .ew-tip { position:relative; display:inline-flex; align-items:center; cursor:help; margin-left:.3rem; }
+    .ew-tip-icon { font-size:.72rem; color:#aaa; line-height:1; }
+    .ew-tip-box { display:none; position:absolute; z-index:99; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#333; color:#fff; font-size:.72rem; line-height:1.45; padding:.45rem .6rem; border-radius:5px; width:210px; pointer-events:none; white-space:normal; }
+    .ew-tip-box::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#333; }
+    .ew-tip:hover .ew-tip-box { display:block; }
     .ew-body { padding:1rem 1.25rem; }
     .ew-cols { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.25rem; }
     @container (max-width: 600px) { .ew-cols { grid-template-columns:1fr 1fr; } }
@@ -79,7 +84,7 @@ export default function handler(req, res) {
       html += '</div>';
 
       html += '<div class="ew-month"><div class="ew-month-header">';
-      html += '<span class="ew-month-title">eBirding This Month</span>';
+      html += '<span class="ew-month-title">eBirding This Month</span><span class="ew-tip"><span class="ew-tip-icon">\u24D8</span><span class="ew-tip-box">Figures come from the eBird API and may differ slightly from eBird\u2019s website, which applies additional quality filters.</span></span>';
       if (monthLabel) html += '<span class="ew-month-label">' + monthLabel + '</span>';
       if (lastChecklist) html += '<span class="ew-month-updated">Updated ' + formatDate(lastChecklist) + '</span>';
       html += '</div><div class="ew-stats">';
