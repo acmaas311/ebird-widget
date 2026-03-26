@@ -1,9 +1,5 @@
-const origin = req.headers.origin || req.headers.referer || '';
-// TEMPORARY: origin check disabled for testing — re-enable before going live
-// const allowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o));
-// if (!allowed) return res.status(403).json({ error: 'Forbidden' });
-
-res.setHeader('Access-Control-Allow-Origin', '*');
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   const { hotspot } = req.query;
   if (!hotspot) return res.status(400).json({ error: 'Missing hotspot param' });
@@ -21,7 +17,6 @@ res.setHeader('Access-Control-Allow-Origin', '*');
     const recent  = await recentRes.json();
     const notable = await notableRes.json();
 
-    // Most recent checklist date
     const dates = recent.map(b => b.obsDt?.split(' ')[0]).filter(Boolean);
     const lastChecklist = dates.sort().reverse()[0] || null;
 
