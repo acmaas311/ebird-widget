@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       fetch(`${base}/data/obs/${hotspot}/recent?back=${daysBack}`, { headers }),
       fetch(`${base}/data/obs/${hotspot}/recent/notable?back=${daysBack}`, { headers }),
       fetch(`${base}/ref/hotspot/info/${hotspot}`, { headers }),
-      fetch(`${base}/product/lists/${hotspot}?maxResults=5`, { headers }),
+      fetch(`${base}/product/lists/${hotspot}?maxResults=200&back=${daysBack}`, { headers }),
       fetch(`${base}/product/spplist/${hotspot}`, { headers }),
     ]);
 
@@ -41,20 +41,25 @@ export default async function handler(req, res) {
     const numChecklistsAllTime = info.numChecklists || null;
     const numEBirdersAllTime   = info.numContributors || null;
 
-    // This month stats derived from results
-    const speciesThisMonth    = new Set(recent.map(b => b.speciesCode)).size;
-    const checklistsThisMonth = Array.isArray(checklists) ? checklists.length : 0;
-    const eBirdersThisMonth   = new Set(
-      Array.isArray(checklists) ? checklists.map(c => c.userDisplayName).filter(Boolean) : []
-    ).size;
+    // Filter checklists to current calendar month only
+    const currentMonth = now.getMonth();
+    const currentYear  = now.getFullYear();
+    const monthChecklists = Array.isArray(checklists) ? checklists.filter(c => {
+      const d = new Date(c.obsDt);
+      return !isNaN(d) && d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+    }) : [];
 
-    const dates = recent.map(b => b.obsDt?.split(' ')[0]).filter(Boolean);
+    // This month stats derived from results
+    const speciesThisMonth    = new Set(Array.isArray(recent) ? recent.map(b => b.speciesCode) : []).size;
+    const checklistsThisMonth = monthChecklists.length;
+    const eBirdersThisMonth   = new Set(monthChecklists.map(c => c.userDisplayName).filter(Boolean)).size;
+
+    const dates = Array.isArray(recent) ? recent.map(b => b.obsDt?.split(' ')[0]).filter(Boolean) : [];
     const lastChecklist = dates.sort().reverse()[0] || null;
 
-    // Normalize checklist dates to YYYY-MM-DD so the widget can parse them consistently
-    const normalizedChecklists = Array.isArray(checklists)
-      ? checklists.map(c => ({ ...c, obsDt: toISODate(c.obsDt) }))
-      : [];
+    // Normalize and limit to 5 most recent for display
+    const normalizedChecklists = monthChecklists.slice(0, 5)
+      .map(c => ({ ...c, obsDt: toISODate(c.obsDt) }));
 
     res.status(200).json({
       recent,
