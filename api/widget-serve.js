@@ -21,11 +21,12 @@ export default function handler(req, res) {
     :host { display: block; }
     .ew-wrap { container-type: inline-size; }
     .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:hidden; color:#1a3a1a; }
-    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; }
+    .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .ew-header-left { display:flex; flex-direction:column; }
     .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
     .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
     .ew-title span { font-size:.85rem; font-weight:400; color:#666; margin-left:.4rem; }
-    .ew-stat-groups { display:flex; gap:0; margin:.9rem 0 0; align-items:flex-start; flex-wrap:wrap; row-gap:.75rem; }
+    .ew-stat-groups { display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; row-gap:.75rem; flex-shrink:0; }
     .ew-stat-group { display:flex; flex-direction:column; gap:.35rem; }
     .ew-stat-group + .ew-stat-group { padding-left:1.25rem; margin-left:1.25rem; border-left:1px solid #d4e6c3; }
     .ew-stat-group-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#2d6a2d; display:flex; align-items:center; gap:.3rem; }
@@ -78,8 +79,10 @@ export default function handler(req, res) {
       var html = '<div class="ew-wrap"><div class="ew">';
 
       html += '<div class="ew-header">';
+      html += '<div class="ew-header-left">';
       html += '<div class="ew-eyebrow">Latest Data from eBird</div>';
       if (hotspotName) html += '<h3 class="ew-title">' + esc(hotspotName) + '</h3>';
+      html += '</div>';
       html += '<div class="ew-stat-groups">';
       if (numSpeciesAllTime) {
         html += '<div class="ew-stat-group">';
@@ -107,7 +110,7 @@ export default function handler(req, res) {
       html += '<div><h4>Most Recent Species Seen This Month</h4>';
       if (recent.length) {
         html += '<ul>';
-        recent.slice(0, 20).forEach(function(b) {
+        recent.slice(0, 10).forEach(function(b) {
           html += '<li><span>' + esc(b.comName) + '</span>' + (b.howMany ? '<span class="ew-count">' + b.howMany + '</span>' : '') + '</li>';
         });
         html += '</ul>';
@@ -130,22 +133,7 @@ export default function handler(req, res) {
       }
       html += '</div>';
 
-      html += '<div><h4>Recent Checklists</h4>';
-      if (checklists.length) {
-        html += '<ul>';
-        checklists.forEach(function(c) {
-          var date  = c.obsDt ? formatDate(c.obsDt.split(' ')[0]) : '';
-          var name  = esc(c.userDisplayName || 'eBirder');
-          var count = c.numSpecies ? c.numSpecies + ' sp.' : '';
-          var url   = c.subId ? 'https://ebird.org/checklist/' + c.subId : 'https://ebird.org/hotspot/' + hotspot;
-          html += '<li><a class="ew-checklist-link" href="' + url + '" target="_blank" rel="noopener">' + name + '</a><span class="ew-count">' + count + (date ? ' \xB7 ' + date : '') + '</span></li>';
-        });
-        html += '</ul>';
-      } else {
-        html += '<p class="ew-empty">No recent checklists.</p>';
-      }
-      html += '</div>';
-      html += '</div>'; // close ew-stack
+      html += '</div>'; // close right column
 
       html += '</div></div>';
       html += '<div class="ew-footer">';
