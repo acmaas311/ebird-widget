@@ -1,13 +1,6 @@
 {
   "rewrites": [
+    { "source": "/widget.js", "destination": "/api/widget-serve" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
-  ],
-  "headers": [
-    {
-      "source": "/widget.js",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
   ]
 }
