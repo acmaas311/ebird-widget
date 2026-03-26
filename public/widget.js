@@ -13,7 +13,7 @@
     style.id = 'ebird-widget-styles';
     style.textContent = `
       .ew-wrap { container-type: inline-size; }
-      .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:hidden; }
+      .ew { border:1px solid #d4e6c3; border-radius:8px; font-family:inherit; background:#f9fdf6; box-sizing:border-box; overflow:hidden; color:#1a3a1a; }
       .ew-header { padding:1rem 1.25rem; border-bottom:1px solid #d4e6c3; }
       .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
       .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
