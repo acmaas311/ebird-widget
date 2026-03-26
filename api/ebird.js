@@ -69,7 +69,6 @@ export default async function handler(req, res) {
       speciesThisMonth,
       checklistsThisMonth,
       eBirdersThisMonth,
-      _debugInfo:           info,
     });
   } catch (err) {
     res.status(500).json({ error: 'eBird fetch failed' });

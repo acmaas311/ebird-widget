@@ -25,7 +25,7 @@ export default function handler(req, res) {
     .ew-eyebrow { font-size:.7rem; color:#2d6a2d; font-weight:600; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.4rem; }
     .ew-title { font-size:1.1rem; font-weight:700; margin:0; color:#1a3a1a; }
     .ew-title span { font-size:.85rem; font-weight:400; color:#666; margin-left:.4rem; }
-    .ew-alltime-note { font-size:.7rem; color:#aaa; margin:.4rem 0 0; }
+    .ew-species-badge { font-size:.78rem; color:#2d6a2d; font-weight:500; margin:.25rem 0 0; }
     .ew-stats { display:flex; gap:2rem; margin:.75rem 0 0; flex-wrap:wrap; }
     .ew-stat-num { font-size:1.3rem; font-weight:700; color:#2d6a2d; display:block; }
     .ew-stat-label { font-size:.7rem; color:#666; text-transform:uppercase; letter-spacing:.05em; }
@@ -75,12 +75,7 @@ export default function handler(req, res) {
       html += '<div class="ew-header">';
       html += '<div class="ew-eyebrow">Latest Data from eBird</div>';
       if (hotspotName) html += '<h3 class="ew-title">' + esc(hotspotName) + '</h3>';
-      html += '<div class="ew-stats">';
-      if (numSpeciesAllTime)    html += '<div><span class="ew-stat-num">' + numSpeciesAllTime.toLocaleString() + '</span><span class="ew-stat-label">Species</span></div>';
-      if (numChecklistsAllTime) html += '<div><span class="ew-stat-num">' + numChecklistsAllTime.toLocaleString() + '</span><span class="ew-stat-label">Checklists</span></div>';
-      if (numEBirdersAllTime)   html += '<div><span class="ew-stat-num">' + numEBirdersAllTime.toLocaleString() + '</span><span class="ew-stat-label">eBirders</span></div>';
-      html += '</div>';
-      html += '<p class="ew-alltime-note">All-time totals</p>';
+      if (numSpeciesAllTime) html += '<div class="ew-species-badge">' + numSpeciesAllTime.toLocaleString() + ' species recorded all time</div>';
       html += '</div>';
 
       html += '<div class="ew-month"><div class="ew-month-header">';
